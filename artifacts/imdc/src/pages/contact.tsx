@@ -9,7 +9,9 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { MapPin, Phone, Mail } from "lucide-react";
-import contactImage from "@/assets/images/contact-office.png";
+import Lazy3D from "@/components/three/Lazy3D";
+
+const ContactGlobe = () => import("@/components/three/ContactGlobe");
 
 const contactSchema = z.object({
   firstName: z.string().min(2, "First name is required"),
@@ -80,12 +82,11 @@ export default function Contact() {
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.5 }}
+              className="flex flex-col h-full"
             >
-              <img 
-                src={contactImage} 
-                alt="IMDC Office" 
-                className="w-full h-64 object-cover rounded-2xl mb-10 shadow-lg"
-              />
+              <div className="w-full h-64 mb-10 rounded-2xl overflow-hidden bg-secondary/5 relative">
+                <Lazy3D component={ContactGlobe} />
+              </div>
               <h2 className="font-heading text-3xl font-bold text-secondary mb-8">Corporate Headquarters</h2>
               
               <div className="space-y-6 text-lg">

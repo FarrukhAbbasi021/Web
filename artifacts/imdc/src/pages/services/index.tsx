@@ -1,45 +1,48 @@
 import { SEO } from "@/components/seo";
 import { motion } from "framer-motion";
 import { Link } from "wouter";
-import { Stethoscope, ShieldCheck, Building2, Clock, Laptop, HeartPulse, ArrowRight } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import servicesTechImage from "@/assets/images/services-tech.png";
+import Lazy3D from "@/components/three/Lazy3D";
+
+const ServiceMini3D = () => import("@/components/three/ServiceMini3D");
 
 export default function ServicesIndex() {
   const services = [
     {
       title: "Medical Billing",
       desc: "End-to-end management of the complete billing process with speed and accuracy.",
-      icon: Stethoscope,
+      variant: "billing" as const,
       link: "/services/medical-billing"
     },
     {
       title: "Medical Coding",
       desc: "Certified coders assign the correct medical codes for every service.",
-      icon: ShieldCheck,
+      variant: "coding" as const,
       link: "/services/coding"
     },
     {
       title: "Credentialing",
       desc: "Enroll doctors with insurance networks quickly and correctly.",
-      icon: Building2,
+      variant: "credentialing" as const,
       link: "/services/credentialing"
     },
     {
       title: "Prior Authorization",
       desc: "Get approval from insurance companies before treatment begins.",
-      icon: Clock,
+      variant: "authorization" as const,
       link: "/services/prior-authorization"
     },
     {
       title: "Claim Management",
       desc: "Handle insurance claims from start to finish.",
-      icon: Laptop,
+      variant: "claims" as const,
       link: "/services/claim-management"
     },
     {
       title: "Patient Support",
       desc: "24/7 AI assistance handles patient inquiries, appointment changes, and follow-ups for a seamless experience.",
-      icon: HeartPulse,
+      variant: "support" as const,
       link: "/services/patient-support"
     }
   ];
@@ -82,10 +85,10 @@ export default function ServicesIndex() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1 }}
-                className="group p-10 rounded-3xl border border-border bg-card hover:border-primary/30 hover:shadow-2xl transition-all duration-500 flex flex-col h-full"
+                className="group p-10 rounded-3xl border border-border bg-card hover:border-primary/30 hover:shadow-2xl transition-all duration-500 flex flex-col h-full relative overflow-hidden"
               >
-                <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mb-8 group-hover:bg-primary group-hover:text-white transition-colors duration-300">
-                  <service.icon className="w-8 h-8" />
+                <div className="w-24 h-24 mb-6 -ml-4 flex items-center justify-center">
+                  <Lazy3D component={ServiceMini3D} variant={service.variant} />
                 </div>
                 <h2 className="font-heading text-2xl font-bold text-secondary mb-4">{service.title}</h2>
                 <p className="text-muted-foreground text-lg mb-8 flex-grow">{service.desc}</p>

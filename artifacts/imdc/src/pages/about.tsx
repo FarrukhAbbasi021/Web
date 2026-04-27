@@ -2,6 +2,9 @@ import { SEO } from "@/components/seo";
 import { motion } from "framer-motion";
 import { Award, Target, Eye, Users } from "lucide-react";
 import ceoImage from "@/assets/images/ceo-portrait.png";
+import Lazy3D from "@/components/three/Lazy3D";
+
+const AboutBackdrop = () => import("@/components/three/AboutBackdrop");
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -40,9 +43,10 @@ export default function About() {
       </section>
 
       {/* Leadership Section */}
-      <section className="py-24 bg-background">
-        <div className="container mx-auto px-4 md:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      <section className="py-24 bg-background relative overflow-hidden">
+        <Lazy3D component={AboutBackdrop} />
+        <div className="container relative z-10 mx-auto px-4 md:px-6 lg:px-8 pointer-events-none">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center pointer-events-auto">
             <motion.div 
               initial="hidden"
               whileInView="visible"

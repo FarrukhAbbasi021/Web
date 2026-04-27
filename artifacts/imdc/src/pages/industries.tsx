@@ -2,8 +2,10 @@ import { SEO } from "@/components/seo";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
-import industriesImage from "@/assets/images/industries-healthcare.png";
 import { Stethoscope, Activity, Building, BriefcaseMedical, HeartPulse, ScanHeart } from "lucide-react";
+import Lazy3D from "@/components/three/Lazy3D";
+
+const IndustriesScene = () => import("@/components/three/IndustriesScene");
 
 export default function Industries() {
   const industries = [
@@ -20,15 +22,15 @@ export default function Industries() {
       <SEO title="Who We Serve | Healthcare Industries" description="IMDC serves physicians, dental practices, hospitals, specialty clinics, multi-specialty groups, and telehealth organizations across the U.S." />
       
       <section className="relative bg-secondary py-24 lg:py-32 overflow-hidden">
-        <div className="absolute inset-0 opacity-20">
-          <img src={industriesImage} alt="Healthcare Facility" className="w-full h-full object-cover" />
+        <div className="absolute inset-0 z-0">
+          <Lazy3D component={IndustriesScene} />
         </div>
-        <div className="absolute inset-0 bg-secondary/90 mix-blend-multiply" />
-        <div className="container relative z-10 mx-auto px-4 text-center">
+        <div className="absolute inset-0 bg-gradient-to-t from-secondary via-secondary/80 to-transparent pointer-events-none" />
+        <div className="container relative z-10 mx-auto px-4 text-center pointer-events-none">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6"
+            className="font-heading text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6 pointer-events-auto"
           >
             Tailored RCM For <br/><span className="text-primary">Every Specialty</span>
           </motion.h1>

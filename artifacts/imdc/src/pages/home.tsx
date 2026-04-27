@@ -2,10 +2,14 @@ import { SEO } from "@/components/seo";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, Building2, Stethoscope, HeartPulse, Laptop, ShieldCheck, Clock } from "lucide-react";
-import heroImage from "@/assets/images/hero-hospital.png";
+import { ArrowRight, CheckCircle2 } from "lucide-react";
 import cliniciansImage from "@/assets/images/clinicians-charts.png";
 import handsImage from "@/assets/images/hands-keyboard-claims.png";
+import Lazy3D from "@/components/three/Lazy3D";
+
+const HeroScene = () => import("@/components/three/HeroScene");
+const EdgeScene = () => import("@/components/three/EdgeScene");
+const ServiceMini3D = () => import("@/components/three/ServiceMini3D");
 
 const fadeInUp = {
   hidden: { opacity: 0, y: 30 },
@@ -28,16 +32,13 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative overflow-hidden bg-secondary pt-24 pb-32 md:pt-32 md:pb-48 lg:pt-40 lg:pb-56">
         <div className="absolute inset-0 z-0">
-          <img 
-            src={heroImage} 
-            alt="Modern Hospital Interior" 
-            className="w-full h-full object-cover opacity-20"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-secondary via-secondary/90 to-secondary/40" />
+          <Lazy3D component={HeroScene} />
+          <div className="absolute inset-0 bg-gradient-to-t from-secondary via-secondary/80 to-transparent pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-r from-secondary via-secondary/80 to-transparent pointer-events-none" />
         </div>
         
-        <div className="container relative z-10 mx-auto px-4 md:px-6 lg:px-8">
-          <div className="max-w-3xl">
+        <div className="container relative z-10 mx-auto px-4 md:px-6 lg:px-8 pointer-events-none">
+          <div className="max-w-3xl pointer-events-auto">
             <motion.div initial="hidden" animate="visible" variants={staggerContainer}>
               <motion.div variants={fadeInUp} className="inline-flex items-center rounded-full border border-white/20 bg-white/10 px-3 py-1 text-sm font-medium text-white mb-6 backdrop-blur-sm">
                 <span className="flex h-2 w-2 rounded-full bg-primary mr-2"></span>
@@ -100,37 +101,37 @@ export default function Home() {
               {
                 title: "Medical Billing",
                 desc: "End-to-end management of the complete billing process with speed and accuracy.",
-                icon: Stethoscope,
+                variant: "billing" as const,
                 link: "/services/medical-billing"
               },
               {
                 title: "Medical Coding",
                 desc: "Certified coders assign the correct medical codes for every service to ensure compliance.",
-                icon: ShieldCheck,
+                variant: "coding" as const,
                 link: "/services/coding"
               },
               {
                 title: "Credentialing",
                 desc: "Enroll doctors with insurance networks quickly and correctly without administrative headaches.",
-                icon: Building2,
+                variant: "credentialing" as const,
                 link: "/services/credentialing"
               },
               {
                 title: "Prior Authorization",
                 desc: "Get approval from insurance companies efficiently before treatment begins.",
-                icon: Clock,
+                variant: "authorization" as const,
                 link: "/services/prior-authorization"
               },
               {
                 title: "Claim Management",
                 desc: "Handle insurance claims from start to finish, significantly reducing denial rates.",
-                icon: Laptop,
+                variant: "claims" as const,
                 link: "/services/claim-management"
               },
               {
                 title: "Patient Support",
                 desc: "24/7 AI assistance handles patient inquiries, appointment changes, and follow-ups.",
-                icon: HeartPulse,
+                variant: "support" as const,
                 link: "/services/patient-support"
               }
             ].map((service, idx) => (
@@ -142,8 +143,8 @@ export default function Home() {
                 variants={fadeInUp}
                 className="group p-8 rounded-2xl border border-border bg-card hover:shadow-lg transition-all duration-300 hover:border-primary/20"
               >
-                <div className="w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center mb-6 text-primary group-hover:scale-110 transition-transform">
-                  <service.icon className="w-6 h-6" />
+                <div className="w-20 h-20 mb-4 flex items-center justify-center">
+                  <Lazy3D component={ServiceMini3D} variant={service.variant} />
                 </div>
                 <h3 className="font-heading text-xl font-bold text-secondary mb-3">{service.title}</h3>
                 <p className="text-muted-foreground mb-6 line-clamp-3">{service.desc}</p>
@@ -160,11 +161,14 @@ export default function Home() {
       <section className="py-24 bg-slate-50 border-y border-border">
         <div className="container mx-auto px-4 md:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
+            <div className="relative">
+              <div className="absolute inset-0 z-10 flex items-center justify-center pointer-events-none">
+                <Lazy3D component={EdgeScene} />
+              </div>
               <img 
                 src={cliniciansImage} 
                 alt="Clinicians reviewing charts" 
-                className="rounded-2xl shadow-2xl object-cover w-full h-[500px]"
+                className="rounded-2xl shadow-2xl object-cover w-full h-[500px] opacity-20 relative z-0"
               />
             </div>
             <div>
