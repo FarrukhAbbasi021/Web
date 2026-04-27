@@ -16,7 +16,7 @@ function Shapes() {
     <group ref={group}>
       <Float speed={1.5} rotationIntensity={0.5} floatIntensity={1} position={[-2, 1, -2]}>
         <Icosahedron args={[1, 0]}>
-          <meshStandardMaterial color="#031B4E" roughness={0.2} metalness={0.8} />
+          <meshStandardMaterial color="#0a0a0a" roughness={0.2} metalness={0.8} />
         </Icosahedron>
       </Float>
       
@@ -28,7 +28,7 @@ function Shapes() {
 
       <Float speed={1} rotationIntensity={0.2} floatIntensity={0.5} position={[0, 2, -3]}>
          <Icosahedron args={[0.5, 0]}>
-          <meshStandardMaterial color="#031B4E" roughness={0.3} metalness={0.7} />
+          <meshStandardMaterial color="#0a0a0a" roughness={0.3} metalness={0.7} />
         </Icosahedron>
       </Float>
     </group>
@@ -54,7 +54,7 @@ export default function AboutBackdrop() {
           size={2} 
           speed={0.1} 
           opacity={0.3} 
-          color="#031B4E" 
+          color="#0a0a0a" 
         />
         
         <Environment preset="city" />

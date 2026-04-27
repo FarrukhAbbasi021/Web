@@ -20,25 +20,25 @@ function Pillars() {
       
       <Float speed={2} rotationIntensity={0} floatIntensity={1} position={[2, 0, 0]}>
         <Box args={[0.4, 2, 0.4]}>
-           <meshStandardMaterial color="#031B4E" roughness={0.2} metalness={0.8} />
+           <meshStandardMaterial color="#0a0a0a" roughness={0.2} metalness={0.8} />
         </Box>
       </Float>
 
       <Float speed={1.5} rotationIntensity={0} floatIntensity={1.5} position={[-2, 0, 0]}>
         <Cylinder args={[0.2, 0.2, 1.5, 32]}>
-           <meshStandardMaterial color="#031B4E" roughness={0.2} metalness={0.8} />
+           <meshStandardMaterial color="#0a0a0a" roughness={0.2} metalness={0.8} />
         </Cylinder>
       </Float>
 
       <Float speed={2.5} rotationIntensity={0} floatIntensity={0.8} position={[0, 0, 2]}>
         <Box args={[0.3, 1.2, 0.3]}>
-           <meshStandardMaterial color="#031B4E" roughness={0.2} metalness={0.8} />
+           <meshStandardMaterial color="#0a0a0a" roughness={0.2} metalness={0.8} />
         </Box>
       </Float>
       
       <Float speed={1.8} rotationIntensity={0} floatIntensity={1.2} position={[0, 0, -2]}>
         <Cylinder args={[0.25, 0.25, 1.8, 32]}>
-           <meshStandardMaterial color="#031B4E" roughness={0.2} metalness={0.8} />
+           <meshStandardMaterial color="#0a0a0a" roughness={0.2} metalness={0.8} />
         </Cylinder>
       </Float>
     </group>

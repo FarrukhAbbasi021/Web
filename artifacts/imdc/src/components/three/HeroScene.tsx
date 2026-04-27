@@ -1,94 +1,108 @@
-import { Canvas, useFrame } from '@react-three/fiber';
-import { Float, Environment, Sparkles, Sphere, Line, Torus } from '@react-three/drei';
-import { useRef, useMemo } from 'react';
-import * as THREE from 'three';
+import { useRef, useMemo } from "react";
+import { useFrame } from "@react-three/fiber";
+import { Float, Environment, Sparkles, MeshDistortMaterial } from "@react-three/drei";
+import * as THREE from "three";
 
-function Nodes() {
-  const group = useRef<THREE.Group>(null);
-  
-  const nodesCount = 8;
-  const nodes = useMemo(() => {
-    return Array.from({ length: nodesCount }).map((_, i) => {
-      const angle = (i / nodesCount) * Math.PI * 2;
-      const radius = 2.5 + Math.random() * 0.5;
-      return {
-        position: [
-          Math.cos(angle) * radius,
-          (Math.random() - 0.5) * 2,
-          Math.sin(angle) * radius
-        ] as [number, number, number],
-        color: Math.random() > 0.5 ? '#DD3333' : '#031B4E'
-      };
-    });
+function ParticleField() {
+  const pointsRef = useRef<THREE.Points>(null);
+  const count = 380;
+
+  const { positions, colors } = useMemo(() => {
+    const positions = new Float32Array(count * 3);
+    const colors = new Float32Array(count * 3);
+    const red = new THREE.Color("#FC3A3A");
+    const charcoal = new THREE.Color("#1a1a1a");
+    for (let i = 0; i < count; i++) {
+      const r = 2.5 + Math.random() * 4.5;
+      const theta = Math.random() * Math.PI * 2;
+      const phi = Math.acos(2 * Math.random() - 1);
+      positions[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+      positions[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta) * 0.6;
+      positions[i * 3 + 2] = r * Math.cos(phi);
+      const mix = Math.random() > 0.7 ? red : charcoal;
+      colors[i * 3] = mix.r;
+      colors[i * 3 + 1] = mix.g;
+      colors[i * 3 + 2] = mix.b;
+    }
+    return { positions, colors };
   }, []);
 
   useFrame((state) => {
-    if (group.current) {
-      group.current.rotation.y = state.clock.elapsedTime * 0.1;
-      group.current.position.y = Math.sin(state.clock.elapsedTime * 0.5) * 0.2;
-    }
+    if (!pointsRef.current) return;
+    pointsRef.current.rotation.y = state.clock.elapsedTime * 0.08;
+    pointsRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.15) * 0.1;
   });
 
   return (
-    <group ref={group}>
-      {nodes.map((node, i) => (
-        <Float key={i} speed={2} rotationIntensity={0.5} floatIntensity={1}>
-          <Sphere position={node.position} args={[0.15, 32, 32]}>
-            <meshStandardMaterial 
-              color={node.color} 
-              emissive={node.color}
-              emissiveIntensity={0.5}
-              roughness={0.1}
-              metalness={0.8}
-            />
-          </Sphere>
-          {/* Lines connecting to center */}
-          <Line 
-            points={[[0, 0, 0], node.position]} 
-            color={node.color} 
-            lineWidth={1}
-            transparent
-            opacity={0.3}
-          />
-        </Float>
-      ))}
-      <Torus args={[1.5, 0.4, 32, 100]}>
-        <meshStandardMaterial 
-          color="#031B4E" 
-          roughness={0.1} 
-          metalness={0.9} 
-          envMapIntensity={2}
+    <points ref={pointsRef}>
+      <bufferGeometry>
+        <bufferAttribute attach="attributes-position" count={count} array={positions} itemSize={3} />
+        <bufferAttribute attach="attributes-color" count={count} array={colors} itemSize={3} />
+      </bufferGeometry>
+      <pointsMaterial size={0.04} vertexColors transparent opacity={0.85} sizeAttenuation />
+    </points>
+  );
+}
+
+function CoreOrb() {
+  const meshRef = useRef<THREE.Mesh>(null);
+  useFrame((state) => {
+    if (!meshRef.current) return;
+    meshRef.current.rotation.y = state.clock.elapsedTime * 0.25;
+    meshRef.current.rotation.x = state.clock.elapsedTime * 0.12;
+  });
+  return (
+    <Float speed={1.2} rotationIntensity={0.4} floatIntensity={0.6}>
+      <mesh ref={meshRef}>
+        <icosahedronGeometry args={[1.4, 4]} />
+        <MeshDistortMaterial
+          color="#0a0a0a"
+          roughness={0.18}
+          metalness={0.95}
+          distort={0.32}
+          speed={1.6}
+          envMapIntensity={1.4}
         />
-      </Torus>
+      </mesh>
+    </Float>
+  );
+}
+
+function RedRings() {
+  const groupRef = useRef<THREE.Group>(null);
+  useFrame((state) => {
+    if (!groupRef.current) return;
+    groupRef.current.rotation.z = state.clock.elapsedTime * 0.18;
+    groupRef.current.rotation.x = Math.sin(state.clock.elapsedTime * 0.4) * 0.3;
+  });
+  return (
+    <group ref={groupRef}>
+      <mesh rotation={[Math.PI / 2.2, 0, 0]}>
+        <torusGeometry args={[2.2, 0.012, 16, 128]} />
+        <meshStandardMaterial color="#FC3A3A" emissive="#DD3333" emissiveIntensity={1.2} toneMapped={false} />
+      </mesh>
+      <mesh rotation={[Math.PI / 1.8, Math.PI / 4, 0]}>
+        <torusGeometry args={[2.6, 0.008, 16, 128]} />
+        <meshStandardMaterial color="#FC3A3A" emissive="#DD3333" emissiveIntensity={0.9} toneMapped={false} />
+      </mesh>
     </group>
   );
 }
 
 export default function HeroScene() {
   return (
-    <div className="absolute inset-0 w-full h-full pointer-events-none">
-      <Canvas 
-        camera={{ position: [0, 0, 6], fov: 50 }}
-        dpr={[1, 2]}
-        gl={{ antialias: true, alpha: true, powerPreference: 'high-performance' }}
-      >
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[10, 10, 5]} intensity={1} />
-        <directionalLight position={[-10, -10, -5]} intensity={0.5} color="#DD3333" />
-        
-        <Nodes />
-        
-        <Sparkles 
-          count={100} 
-          scale={10} 
-          size={2} 
-          speed={0.2} 
-          opacity={0.2} 
-          color="#ffffff" 
-        />
-        
-        <Environment preset="city" />
-      </Canvas>
-    </div>
+    <>
+      <color attach="background" args={["#000000"]} />
+      <fog attach="fog" args={["#000000", 7, 16]} />
+      <ambientLight intensity={0.25} />
+      <pointLight position={[5, 3, 5]} intensity={2.4} color="#FC3A3A" />
+      <pointLight position={[-5, -2, 4]} intensity={1.4} color="#ffffff" />
+      <directionalLight position={[3, 6, 4]} intensity={0.6} />
+      <Environment preset="city" />
+      <CoreOrb />
+      <RedRings />
+      <ParticleField />
+      <Sparkles count={60} scale={[10, 6, 6]} size={1.5} speed={0.3} color="#FC3A3A" opacity={0.6} />
+    </>
   );
 }

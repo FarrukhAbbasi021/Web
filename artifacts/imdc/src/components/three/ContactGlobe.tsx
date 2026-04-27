@@ -17,7 +17,7 @@ function Globe() {
     <group>
       <Sphere ref={sphere} args={[2, 64, 64]}>
         <meshStandardMaterial 
-          color="#031B4E" 
+          color="#0a0a0a" 
           roughness={0.1} 
           metalness={0.8} 
         />
