@@ -1,0 +1,62 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "PM4wxYvBaXSLGqQ2rVO0y"
+uri = "file://artifacts/imdc/src/assets/images/hero-hospital.png"
+type = "image"
+title = "Hero modern hospital interior"
+
+[[generated]]
+id = "QSayDl9RXsjdDhwBqEuaD"
+uri = "file://artifacts/imdc/src/assets/images/clinicians-charts.png"
+type = "image"
+title = "Clinicians reviewing charts"
+
+[[generated]]
+id = "Pmq_IzPQtvGtjOrP6Brzj"
+uri = "file://artifacts/imdc/src/assets/images/hands-keyboard-claims.png"
+type = "image"
+title = "Hands on keyboard claims"
+
+[[generated]]
+id = "83EcJORFrcel8N7oVcr_F"
+uri = "file://artifacts/imdc/src/assets/images/ceo-portrait.png"
+type = "image"
+title = "CEO portrait placeholder"
+
+[[generated]]
+id = "BnzACgRE_6JheqAX_1a9f"
+uri = "file://artifacts/imdc/src/assets/images/contact-office.png"
+type = "image"
+title = "Contact modern office"
+
+[[generated]]
+id = "6sAa2wQT72VQi8be4SCSe"
+uri = "file://artifacts/imdc/src/assets/images/industries-healthcare.png"
+type = "image"
+title = "Industries diverse healthcare"
+
+[[generated]]
+id = "hJj-xBz7ATq867qsML9tw"
+uri = "file://artifacts/imdc/src/assets/images/resources-journals.png"
+type = "image"
+title = "Resources medical journals"
+
+[[generated]]
+id = "0EkDsuztGW3p-XEI-CpRC"
+uri = "file://artifacts/imdc/src/assets/images/services-tech.png"
+type = "image"
+title = "Services technology merge"
+
+[[generated]]
+id = "yLkmclhbZaGaItsX08i2G"
+uri = "file://artifacts/imdc/src/assets/images/service-billing.png"
+type = "image"
+title = "Medical billing focus"
+
+[[generated]]
+id = "0YRW1NwzKBnJk-6-fhLbl"
+uri = "file://artifacts/imdc/src/assets/images/service-coding.png"
+type = "image"
+title = "Medical coding focus"
