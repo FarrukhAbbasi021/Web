@@ -20,27 +20,12 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist"),
     emptyOutDir: true,
-    target: "esnext",
-    minify: "terser",
-    sourcemap: false,
-    rollupOptions: {
-      output: {
-        manualChunks: {
-          'three': ['three', '@react-three/fiber', '@react-three/drei'],
-          'vendor': ['react', 'react-dom', 'framer-motion'],
-        },
-      },
-    },
+    minify: "esbuild",
   },
   server: {
     host: "0.0.0.0",
-    port: 3000,
   },
   preview: {
     host: "0.0.0.0",
-    port: 3000,
-  },
-  ssr: {
-    noExternal: ['three', '@react-three/fiber', '@react-three/drei'],
   },
 });
