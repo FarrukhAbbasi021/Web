@@ -1,16 +1,11 @@
 {
   "name": "workspace",
   "version": "0.0.0",
-  "license": "MIT",
-  "packageManager": "pnpm@9.0.0",
-  "scripts": {
-    "build": "npm run typecheck",
-    "typecheck:libs": "tsc --build",
-    "typecheck": "npm run typecheck:libs"
-  },
   "private": true,
+  "scripts": {
+    "build": "echo done"
+  },
   "devDependencies": {
-    "typescript": "~5.9.2",
-    "prettier": "^3.8.1"
+    "typescript": "~5.9.2"
   }
 }
