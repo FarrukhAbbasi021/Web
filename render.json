@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npm install -g pnpm@9.0.0 && pnpm install && pnpm run build",
+  "buildCommand": "cd artifacts/imdc && npm install --no-save && npm run build",
   "startCommand": "cd artifacts/imdc && npm run serve",
   "envVars": {
     "NODE_ENV": "production"
