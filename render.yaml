@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: imdc-web
+    runtime: node
+    region: oregon
+    buildCommand: npm install -g pnpm@9.0.0 && pnpm install && pnpm run build
+    startCommand: cd artifacts/imdc && npm run serve
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NODE_VERSION
+        value: "24"
