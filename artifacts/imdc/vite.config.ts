@@ -20,11 +20,21 @@ export default defineConfig({
   build: {
     outDir: path.resolve(import.meta.dirname, "dist"),
     emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'three': ['three', '@react-three/fiber', '@react-three/drei'],
+        },
+      },
+    },
   },
   server: {
     host: "0.0.0.0",
   },
   preview: {
     host: "0.0.0.0",
+  },
+  ssr: {
+    noExternal: ['three', '@react-three/fiber', '@react-three/drei'],
   },
 });

@@ -1,4 +1,5 @@
 import React, { Suspense, ComponentType, useEffect, useState } from 'react';
+import { Canvas } from '@react-three/fiber';
 import { motion } from 'framer-motion';
 
 interface Lazy3DProps {
@@ -20,7 +21,8 @@ class ThreeErrorBoundary extends React.Component<
     return { hasError: true };
   }
 
-  componentDidCatch() {
+  componentDidCatch(error: Error) {
+    console.error('3D Scene Error:', error);
   }
 
   render() {
@@ -72,7 +74,18 @@ export function Lazy3D({ component, fallback = null, ...props }: Lazy3DProps) {
             className="w-full h-full"
             style={{ pointerEvents: 'auto' }}
           >
-            <LazyComponent {...props} />
+            <Canvas
+              dpr={[1, 2]}
+              gl={{
+                antialias: true,
+                alpha: true,
+                powerPreference: 'high-performance',
+              }}
+              camera={{ position: [0, 0, 8], fov: 75 }}
+              style={{ width: '100%', height: '100%' }}
+            >
+              <LazyComponent {...props} />
+            </Canvas>
           </motion.div>
         </Suspense>
       </ThreeErrorBoundary>

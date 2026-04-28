@@ -1,6 +1,6 @@
 import { useRef, useMemo } from "react";
 import { useFrame } from "@react-three/fiber";
-import { Float, Environment, Sparkles, MeshDistortMaterial } from "@react-three/drei";
+import { Float, Sparkles, MeshDistortMaterial } from "@react-three/drei";
 import * as THREE from "three";
 
 function ParticleField() {
@@ -94,11 +94,10 @@ export default function HeroScene() {
     <>
       <color attach="background" args={["#000000"]} />
       <fog attach="fog" args={["#000000", 7, 16]} />
-      <ambientLight intensity={0.25} />
+      <ambientLight intensity={0.35} />
       <pointLight position={[5, 3, 5]} intensity={2.4} color="#FC3A3A" />
       <pointLight position={[-5, -2, 4]} intensity={1.4} color="#ffffff" />
-      <directionalLight position={[3, 6, 4]} intensity={0.6} />
-      <Environment preset="city" />
+      <directionalLight position={[3, 6, 4]} intensity={0.8} />
       <CoreOrb />
       <RedRings />
       <ParticleField />
